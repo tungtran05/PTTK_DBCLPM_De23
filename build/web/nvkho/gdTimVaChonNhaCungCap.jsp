@@ -27,6 +27,9 @@
             .custom-button:hover {
                 color: #563D7C !important;
             }
+            .btn-purple:hover {
+                background-color: #6a4b99 !important;
+            }
         </style>
     </head>
     <body>
@@ -81,7 +84,7 @@
                     </a>
                 </div>
             </div>
-            <div class="container pl-5">
+            <div class="container pl-3">
                 <div class="pt-4"><h4>Tìm và chọn nhà cung cấp</h4></div>
                 <div>
                     <%
@@ -110,10 +113,12 @@
                             </form>
                         </div>
                         <div class="justify-content-end">
-                            <button style="background-color: #563D7C; color: #FFE484 !important;" 
-                                    class="btn">
-                                Thêm nhà cung cấp mới
-                            </button>
+                            <a href="gdThemNhaCungCap.jsp" target="_blank">
+                                <button style="background-color: #563D7C; color: #FFE484 !important;" 
+                                        class="btn btn-purple">
+                                    Thêm nhà cung cấp mới
+                                </button>
+                            </a>
                         </div>
                     </div>
                     

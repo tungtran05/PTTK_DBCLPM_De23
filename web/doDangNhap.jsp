@@ -23,7 +23,7 @@
         NhanVien nv = tvDAO.getNhanVienByTendangnhap(tendangnhap); // get thông tin nhân viên
         
         DaiLyTrungGianDAO dailyDAO = new DaiLyTrungGianDAO();
-        DaiLyTrungGian daily = dailyDAO.getDaiLyTrungGianByThanhVienId(tv.getId());
+        DaiLyTrungGian daily = dailyDAO.getDaiLyTrungGianByThanhVienId(nv.getId());
         session.setAttribute("daily", daily);
         
         if(nv.getVitricongviec().equals("nvkho")){

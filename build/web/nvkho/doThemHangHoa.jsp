@@ -4,6 +4,8 @@
     Author     : Xuan Toog
 --%>
 
+<%@page import="model.*"%>
+<%@page import="dao.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +14,32 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+            String ma = request.getParameter("ma");
+            String tenHH = request.getParameter("tenHH");
+            String moTa = request.getParameter("mota");
+            HangHoa hh = new HangHoa(ma, tenHH, moTa);
+            
+            HangHoaDAO hhDAO = new HangHoaDAO();
+            int status = hhDAO.createHangHoa(hh);
+            if(status==1) {
+        %>
+                <script type="text/javascript">
+                    if(confirm("Thêm hàng hóa thành công! Bạn có muốn trở về trang chủ?")){
+                        window.location.href = "<%= request.getContextPath() %>/nvkho/gdNhanVienKho.jsp";
+                    }
+                </script>
+        <%
+            }
+            if(status==0) {
+        %>
+                <script type="text/javascript">
+                    if(confirm("Thêm nhà cung cấp thất bại! Bạn có muốn quay lại trang thêm hàng hóa?")){
+                        window.location.href = "<%= request.getContextPath() %>/nvkho/gdThemHangHoa.jsp";
+                    }
+                </script>
+        <%
+            }
+        %>
     </body>
 </html>

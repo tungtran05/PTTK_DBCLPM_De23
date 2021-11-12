@@ -9,6 +9,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -35,6 +37,9 @@
             }
             .custom-button-2:hover {
                 color: #346E9F !important; 
+            }
+            .btn-purple:hover {
+                background-color: #6a4b99 !important;
             }
         </style>
         <%
@@ -149,8 +154,8 @@
                 }
 
                 session.setAttribute("list_hanghoanhap", list_hanghoanhap); // cập nhật lại ds mặt hàng nhập
-
 //                out.println(list_mathangnhap);
+                session.setAttribute("set", set);
             }
             if (action.equals("xoaHHnhap")) {
                 // lấy nccID từ session
@@ -170,10 +175,16 @@
                 list_hanghoanhap = (ArrayList<PhieuNhap_HangHoa>) session.getAttribute("list_hanghoanhap");
 
                 int index = Integer.parseInt(request.getParameter("index"));
+                
+                String ten = list_hanghoanhap.get(index).getHangHoa().getMa();
+                set = (HashSet<String>) session.getAttribute("set");
+                set.remove(ten);
+                session.setAttribute("set", set);
+                        
                 list_hanghoanhap.remove(index);
                 session.setAttribute("list_hanghoanhap", list_hanghoanhap); // cập nhật lại ds mặt hàng nhập
 
-//                out.println(list_mathangnhap);
+                
             }
 
 
@@ -231,7 +242,7 @@
                     </a>
                 </div>
             </div>
-            <div class="container pl-5">
+            <div class="container pl-3">
                 <div class="pt-4 d-flex flex-row justify-content-between">
                     <div>
                         <h4>Nhập hàng</h4>
@@ -257,10 +268,12 @@
                             </form>
                         </div>
                         <div class="justify-content-end">
-                            <button style="background-color: #563D7C; color: #FFE484 !important;" 
-                                    class="btn">
-                                Thêm hàng hóa mới
-                            </button>
+                            <a href="gdThemHangHoa.jsp" target="_blank">
+                                <button style="background-color: #563D7C; color: #FFE484 !important;" 
+                                        class="btn btn-purple">
+                                    Thêm hàng hóa mới
+                                </button>
+                            </a>
                         </div>
                     </div>
                     
@@ -271,9 +284,9 @@
                             <tr class="table-primary">
                                 <th>ID</th>
                                 <th>Mã</th>
-                                <th>Tên</th>
+                                <th>Tên hàng hóa</th>
                                 <th>Mô tả</th>
-                                <th>Đơn giá</th>
+                                <th>Đơn giá (VNĐ)</th>
                                 <th>Số lượng</th>
                                 <th>Thao tác</th>
                             </tr>
@@ -338,9 +351,9 @@
                                     </td>
                                     <td><%= list_hanghoanhap.get(i).getHangHoa().getMa()%></td>
                                     <td><%= list_hanghoanhap.get(i).getHangHoa().getTen()%></td>
-                                    <td><%= list_hanghoanhap.get(i).getDongia()%></td>
+                                    <td><%= String.format("%,.2f", list_hanghoanhap.get(i).getDongia()) %></td>
                                     <td><%= list_hanghoanhap.get(i).getSoluong()%></td>
-                                    <td><%= thanhtiens.get(i)%></td>
+                                    <td><%= String.format("%,.2f", thanhtiens.get(i)) %></td>
                                     <td>
                                         <button class="custom-button-2" type="submit">Xóa</button>
                                     </td>
@@ -349,9 +362,21 @@
                                 <% }%>
                             </table>
                     </div>
-                    <div class="text-right"><b>Tổng tiền:</b> <%= tongtien%> (VNĐ)</div>
+                    <c:set var = "tt" value = "<%= tongtien %>" />        
+                    <div class="text-right"><b>Tổng tiền (VNĐ):</b> <%= String.format("%,.2f", tongtien) %></div>
                     
                     <br>
+                    
+                    <div class="text-right">
+                        <form action="doNhapHang.jsp" method="POST" class="">
+                            <label for="ghichu">Ghi chú: </label>
+                            <input type="text" name="ghichu" id="ghichu" placeholder="Ghi chú ..."/>
+                            <br/><br/>
+                            <input type="submit" value="Lưu phiếu nhập" class="btn btn-primary"/>
+                        </form>
+                    </div>
+                    
+                    <br/><br/>
                 </div>
             </div>
         </div>
