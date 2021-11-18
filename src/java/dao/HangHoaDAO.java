@@ -24,6 +24,24 @@ public class HangHoaDAO extends DAO{
     public int createHangHoa(HangHoa hh) {
         int status = 0;
         try {
+            // check mã HangHoa hh đã tồn tại chưa
+            PreparedStatement ps1 = con.prepareStatement("select * from hanghoa where ma = ?");
+            ps1.setString(1, hh.getMa());
+            ArrayList<HangHoa> arr = new ArrayList();
+            ResultSet rs = ps1.executeQuery();
+            while(rs.next()) {
+                HangHoa hanghoa = new HangHoa();
+                hanghoa.setId(rs.getInt(1));
+                hanghoa.setMa(rs.getString(2));
+                hanghoa.setTen(rs.getString(3));
+                hanghoa.setMota(rs.getString(4));
+                
+                arr.add(hanghoa);
+            }
+            if(arr.size() > 0)
+                return -1;
+            
+            
             PreparedStatement ps = con.prepareStatement("insert into hanghoa(ma, ten, mota) values (?,?,?)");
             ps.setString(1, hh.getMa());
             ps.setString(2, hh.getTen());

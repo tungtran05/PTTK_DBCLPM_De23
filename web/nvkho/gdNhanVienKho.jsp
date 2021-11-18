@@ -8,6 +8,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+    <%
+        DaiLyTrungGian daily = (DaiLyTrungGian) session.getAttribute("daily");
+//        out.print("Dai Ly Id: " + daily.getId());
+    %>
     <head>
         <link rel="icon" href="https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=991344888073378&height=250&width=250&ext=1638422277&hash=AeRcCjdTkxdAuvh6c48">
         <script src="https://kit.fontawesome.com/22e9af292e.js" crossorigin="anonymous"></script>

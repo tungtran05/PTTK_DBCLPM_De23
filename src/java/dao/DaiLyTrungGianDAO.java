@@ -24,7 +24,7 @@ public class DaiLyTrungGianDAO extends DAO{
         try {
             PreparedStatement ps = con.prepareStatement("select dailytrunggian.id, dailytrunggian.ma, "
                     + "dailytrunggian.ten, dailytrunggian.diachi, dailytrunggian.sodienthoai from "
-                    + "dailytrunggian join thanhvien on dailytrunggian.id = thanhvien.id "
+                    + "dailytrunggian join thanhvien on dailytrunggian.id = thanhvien.dailytrunggian_id "
                     + "where thanhvien.id = ?");
             ps.setInt(1, tvID);
             

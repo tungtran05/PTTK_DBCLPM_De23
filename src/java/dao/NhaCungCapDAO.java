@@ -24,6 +24,25 @@ public class NhaCungCapDAO extends DAO{
     public int createNhaCungCap(NhaCungCap ncc) {
         int status = 0;
         try {
+            // check mã ncc đã tồn tại chưa
+            ArrayList<NhaCungCap> nccs = new ArrayList();
+            PreparedStatement ps1 = con.prepareCall("select * from nhacungcap where ma = ?");
+            ps1.setString(1, ncc.getMa());
+            ResultSet rs = ps1.executeQuery();
+            while(rs.next()) {
+                NhaCungCap _ncc = new NhaCungCap();
+                _ncc.setId(rs.getInt(1));
+                _ncc.setMa(rs.getString(2));
+                _ncc.setTen(rs.getString(3));
+                _ncc.setDiachi(rs.getString(4));
+                _ncc.setSodienthoai(rs.getString(5));
+                
+                nccs.add(_ncc);
+            }
+            if(nccs.size() > 0)
+                return -1;
+            
+            
             PreparedStatement ps = con.prepareStatement("insert into nhacungcap (ma, ten, diachi, sodienthoai)"
                     + " values (?,?,?,?)");
             ps.setString(1, ncc.getMa());
@@ -49,10 +68,10 @@ public class NhaCungCapDAO extends DAO{
             if(rs.next()) {
                 ncc = new NhaCungCap();
                 ncc.setId(rs.getInt(1));
-                ncc.setMa(rs.getString(1));
-                ncc.setTen(rs.getString(2));
-                ncc.setDiachi(rs.getString(3));
-                ncc.setSodienthoai(rs.getString(4));
+                ncc.setMa(rs.getString(2));
+                ncc.setTen(rs.getString(3));
+                ncc.setDiachi(rs.getString(4));
+                ncc.setSodienthoai(rs.getString(5));
             }
         } catch (Exception e) {
             e.printStackTrace();
