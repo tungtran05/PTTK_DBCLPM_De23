@@ -21,9 +21,15 @@
             String sdt = request.getParameter("sdt");
 
             NhaCungCapDAO nccDAO = new NhaCungCapDAO();
-            int status = nccDAO.createNhaCungCap(new NhaCungCap(ma, ten, diaChi, sdt));
+            
+            boolean exist = nccDAO.existMaNCC(ma);
+//            out.print(exist);
+            if(exist) {
+                response.sendRedirect("\\gdThemNhaCungCap.jsp?err=existMaNCC&ma="+ma+"&ten="+ten+"&diaChi="+diaChi+"&sdt="+sdt);
+            } else {
+                int status = nccDAO.createNhaCungCap(new NhaCungCap(ma, ten, diaChi, sdt));
 
-            if(status==1) {
+                if(status==1) {
         %>
                 <script type="text/javascript">
                     if(confirm("Thêm nhà cung cấp thành công! Bạn có muốn trở về trang chủ?")){
@@ -40,6 +46,7 @@
                     }
                 </script>
         <%
+            }
             }
         %>
     </body>

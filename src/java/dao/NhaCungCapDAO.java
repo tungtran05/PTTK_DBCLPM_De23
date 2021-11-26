@@ -103,4 +103,21 @@ public class NhaCungCapDAO extends DAO{
         
         return arr;
     }
+    
+    public boolean existMaNCC(String maNCC) {
+        boolean check = false;
+        try {
+            String query = "select * from nhacungcap where ma = '"+maNCC+"'";
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(query);
+            
+            if(rs.next())
+                check = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return check;
+    }
 }

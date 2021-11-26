@@ -227,7 +227,7 @@
                 </div>
                 <div class="py-4">
                     <a href="gdTimVaChonNhaCungCap.jsp?action=gdNVKho" class="custom-a">
-                        <div class="d-flex">
+                        <div class="d-flex" style="color: #563D7C !important">
                             <span class="pr-2"><i class="fas fa-download"></i></span>
                             <span>Nhập hàng</span>
                         </div>
@@ -301,8 +301,8 @@
                                     <td><%= hhs.get(i).getMa()%></td>
                                     <td><%= hhs.get(i).getTen()%></td>
                                     <td><%= (hhs.get(i).getMota()!=null) ? hhs.get(i).getMota()!=null : ""%></td>
-                                    <td><input type="text" name="donGia" required/></td>
-                                    <td><input type="text" name="soLuong" required/></td>
+                                    <td><input type="number" name="donGia" required/></td>
+                                    <td><input type="number" name="soLuong" required/></td>
                                     <td>
                                         <button class="custom-button-2" type="submit">Thêm</button>
                                     </td>
@@ -351,9 +351,9 @@
                                     </td>
                                     <td><%= list_hanghoanhap.get(i).getHangHoa().getMa()%></td>
                                     <td><%= list_hanghoanhap.get(i).getHangHoa().getTen()%></td>
-                                    <td><%= String.format("%,.2f", list_hanghoanhap.get(i).getDongia()) %></td>
+                                    <td><%= String.format("%,.0f", list_hanghoanhap.get(i).getDongia()) %></td>
                                     <td><%= list_hanghoanhap.get(i).getSoluong()%></td>
-                                    <td><%= String.format("%,.2f", thanhtiens.get(i)) %></td>
+                                    <td><%= String.format("%,.0f", thanhtiens.get(i)) %></td>
                                     <td>
                                         <button class="custom-button-2" type="submit">Xóa</button>
                                     </td>
@@ -363,7 +363,7 @@
                             </table>
                     </div>
                     <c:set var = "tt" value = "<%= tongtien %>" />        
-                    <div class="text-right"><b>Tổng tiền (VNĐ):</b> <%= String.format("%,.2f", tongtien) %></div>
+                    <div class="text-right"><b>Tổng tiền (VNĐ):</b> <%= String.format("%,.0f", tongtien) %></div>
                     
                     <br>
                     

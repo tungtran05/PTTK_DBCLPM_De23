@@ -21,8 +21,13 @@
             HangHoa hh = new HangHoa(ma, tenHH, moTa);
             
             HangHoaDAO hhDAO = new HangHoaDAO();
-            int status = hhDAO.createHangHoa(hh);
-            if(status==1) {
+            boolean exist = hhDAO.existMaHH(ma);
+            out.print(exist);
+            if(exist) {
+                response.sendRedirect("\\gdThemHangHoa.jsp?err=existMaHH&ma="+ma+"&tenHH="+tenHH+"&mota="+moTa);
+            } else {
+                int status = hhDAO.createHangHoa(hh);
+                if(status==1) {
         %>
                 <script type="text/javascript">
                     if(confirm("Thêm hàng hóa thành công! Bạn có muốn trở về trang chủ?")){
@@ -39,6 +44,7 @@
                     }
                 </script>
         <%
+            }
             }
         %>
     </body>

@@ -69,7 +69,7 @@
                 </div>
                 <div class="py-4">
                     <a href="gdTimVaChonNhaCungCap.jsp?action=gdNVKho" class="custom-a">
-                        <div class="d-flex">
+                        <div class="d-flex" style="color: #563D7C !important">
                             <span class="pr-2"><i class="fas fa-download"></i></span>
                             <span>Nhập hàng</span>
                         </div>

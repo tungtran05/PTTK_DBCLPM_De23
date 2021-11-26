@@ -100,4 +100,21 @@ public class HangHoaDAO extends DAO{
         
         return arr;
     }
+    
+    public boolean existMaHH(String maHH) {
+        boolean check = false;
+        try {
+            String query = "select * from hanghoa where ma = '"+maHH+"'";
+            Statement statement = con.createStatement();
+            
+            ResultSet rs = statement.executeQuery(query);
+            
+            if(rs.next())
+                check = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return check;
+    }
 }

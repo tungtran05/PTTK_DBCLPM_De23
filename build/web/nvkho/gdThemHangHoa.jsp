@@ -30,7 +30,7 @@
             <div style="border-right: 1px solid #346E9F; background: #F4F5F7;" class="d-flex flex-column px-4">
                 <div class="py-4">
                     <a href="#" class="custom-a">
-                        <div class="d-flex">
+                        <div class="d-flex" style="color: #563D7C !important">
                             <span class="pt-2 pr-2"><i class="fas fa-box-open"></i></span>
                             <span>Quản lý <br>hàng hóa</span>
                         </div>
@@ -70,27 +70,49 @@
                 </div>
             </div>
             <div>
+                <%
+                    String ma = "", tenHH = "", moTa = "";
+                    if(request.getParameter("ma") != null) {
+                        ma = (String) request.getParameter("ma");
+                    }
+                    if(request.getParameter("tenHH")!= null) {
+                        tenHH = (String) request.getParameter("tenHH");
+                    }
+                    if(request.getParameter("mota")!= null) {
+                        moTa = (String) request.getParameter("mota");
+                    }  
+                %>
                 <div class="p-4"><h4>Thêm hàng hóa</h4></div>
+                
                 <div class="row">
-                    <div class="col-6 ml-5 pl-5">
+                    <div class="col-8 ml-5 pl-5">
                         <form action="doThemHangHoa.jsp" method="post">
                             <div class="form-group">
                                 <label for="ma" class="col-form-label">
                                     Mã hàng hóa 
                                     <span style="color: red;">*</span> :
                                 </label>
-                                <input type="text" name="ma" id="ma" required/>
+                                <input type="text" name="ma" id="ma" value="<%=ma %>" required/>
+                                <%
+                                    if(request.getParameter("err") != null && request.getParameter("err").equals("existMaHH")) {
+                                %>
+                                <div class="d-flex justify-content-start">    
+                                    <small class="text-danger">Mã hàng hóa đã tồn tại!</small>
+                                </div>
+                                <%
+                                    }  
+                                %>
                             </div>
                             <div class="form-group">
                                 <label for="tenHH" class="col-form-label">
                                     Tên hàng hóa 
                                     <span style="color: red;">*</span> :
                                 </label>
-                                <input type="text" name="tenHH" id="tenHH" required/>
+                                <input type="text" name="tenHH" id="tenHH" value="<%=tenHH %>" required/>
                             </div>
                             <div class="form-group">
                                 <label for="mota" class="col-form-label">Mô tả: </label>
-                                <input type="text" name="mota" id="mota"/>
+                                <input type="text" name="mota" id="mota" value="<%=moTa %>"/>
                             </div>
                             <div class="form-group ml-5 pl-3">
                                 <input type="submit" value="Lưu" class="btn btn-primary"/>
